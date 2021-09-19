@@ -1,0 +1,34 @@
+{
+  "name": "cargs",
+  "version": "1.0.0",
+  "description": "Lightweight parser of cli arguments",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc --watch -p dev.tsconfig.json",
+    "postinstall": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimka/cargs.git"
+  },
+  "keywords": [
+    "parser",
+    "cli",
+    "args"
+  ],
+  "author": "vladimka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladimka/cargs/issues"
+  },
+  "homepage": "https://github.com/vladimka/cargs#readme",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
