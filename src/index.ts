@@ -1,3 +1,8 @@
+interface IOptions{
+    hasCommand?: boolean;
+    delimeter?: string;
+}
+
 /**
  * Match the parameter is CLI argument
  * 
@@ -9,7 +14,7 @@
  * @param {String} str 
  * @returns {Boolean}
  */
- const isArgument = (str: string): Boolean => str != null && str.startsWith("-");
+ const isArgument = (str: string, delimeter : string): Boolean => str != null && str.startsWith(delimeter);
 
  /**
  * Get the argument name by argument
@@ -21,8 +26,8 @@
  * @param {String} arg 
  * @returns {String}
  */
-const getArgumentName = (arg: string): string => {
-    let name = arg.replace(/-+/i, "");
+const getArgumentName = (arg: string, delimeter : string): string => {
+    let name = arg.replace(new RegExp(`${delimeter}+`), "");
     return name;
 }
 
@@ -32,24 +37,29 @@ const getArgumentName = (arg: string): string => {
  * @param {Array<string>} argv
  * @returns {[string, object]}
  */
-function parse(argv: Array<string>): [string, object] {
-    if(argv.length < 3)
-        throw new Error("No command");
+function parse(argv: Array<string>, _options: IOptions): [string, object] {
+    let options = _options || { hasCommand : true, delimeter : '-' };
+
+    let hasCommand = options.hasCommand || true;
+    let delimeter = options.delimeter || '-';
 
     const _args = argv.slice(2);
-    const command = _args.shift();
+    let command = null;
+    
+    if(hasCommand)
+        command = _args.shift();
 
     const args = {};
 
     for(let i = 0; i < _args.length; i++){
         let _arg: string = _args[i];
         let next_arg: string = i + 1 <= _args.length ? _args[i+ 1] : null;
-        let key_name: string = getArgumentName(_arg);
+        let key_name: string = getArgumentName(_arg, delimeter);
 
-        if(!isArgument(_arg))
+        if(!isArgument(_arg, delimeter))
             continue;
 
-        if(isArgument(next_arg) || next_arg == null){
+        if(isArgument(next_arg, delimeter) || next_arg == null){
             args[key_name] = true;
             continue;
         }
