@@ -2,7 +2,7 @@
   "name": "cargs",
   "version": "1.0.1",
   "description": "Lightweight parser of cli arguments",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "directories": {
     "example": "examples"
   },
